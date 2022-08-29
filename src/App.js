@@ -1,24 +1,25 @@
-import React, { useEffect } from "react";
-import { InfoSection, Navbar, Footer } from "./components";
-import { supportedChainId } from "./config";
-import { useEthers } from "@usedapp/core";
+import React, { useEffect } from 'react'
+import { Minter } from './components'
+import { supportedChainId } from './config'
+import { useEthers } from '@usedapp/core'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
-  const { chainId, switchNetwork } = useEthers();
+  const { chainId, switchNetwork } = useEthers()
 
   useEffect(() => {
     if (chainId !== supportedChainId) {
-      switchNetwork(supportedChainId);
+      switchNetwork(supportedChainId)
     }
-  }, []);
+  }, [chainId])
 
   return (
     <div>
-      <Navbar />
-      <InfoSection />
-      <Footer />
+      <ToastContainer style={{ backgroundColor: 'black' }} />
+      <Minter />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
