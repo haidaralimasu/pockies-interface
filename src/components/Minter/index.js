@@ -57,7 +57,8 @@ const Minter = () => {
 
   const getHexProof = async () => {
     try {
-      const res = await axios.get(`${expressUrl}/${userAccount}`);
+      const url = `${expressUrl}/${userAccount}`;
+      const res = await axios.get(url);
       setHexProof(res.data);
     } catch (error) {
       console.log(error);
@@ -103,9 +104,9 @@ const Minter = () => {
     if (account && formattedIsPresale == true) {
       getHexProof();
     }
-  }, [hexProof]);
+  }, [hexProof, account, formattedIsPresale]);
 
-  console.log(hexProof);
+  console.log(hexProof, "Hii", userAccount);
 
   return (
     <>
