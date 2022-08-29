@@ -9,9 +9,9 @@
 
 // MAINNET
 
-export const pockiesAddress = '0xd98B03bCD78cC548c6ce3fF3C70E1aCa124bFc18'
-export const infuraId = 'd014af161a4b4ffbaa358366e232e2c8'
-export const supportedChainId = 1
-export const expressUrl = 'http://localhost:8000/proof'
+export const pockiesAddress = "0xd98B03bCD78cC548c6ce3fF3C70E1aCa124bFc18";
+export const infuraId = "d014af161a4b4ffbaa358366e232e2c8";
+export const supportedChainId = 1;
+export const expressUrl = "https://www.api.u-topia.io";
 export const rpcUrl =
-  'https://mainnet.infura.io/v3/d014af161a4b4ffbaa358366e232e2c8'
+  "https://mainnet.infura.io/v3/d014af161a4b4ffbaa358366e232e2c8";
