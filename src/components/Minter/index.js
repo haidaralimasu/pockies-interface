@@ -162,7 +162,7 @@ const Minter = () => {
     <>
       <div className="minter-main">
         <h1 style={{ color: 'white' }} className="minter-h1">
-          Pockies Mint Is Live jh
+          Pockies Mint Is Live
         </h1>
 
         {formattedTotalSupply < formattedMaxSupply ? (
