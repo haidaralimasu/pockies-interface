@@ -1,19 +1,17 @@
 @font-face {
   font-family: gotham;
-  src: url('GothamBold.ttf');
+  src: url("Orbitron.ttf");
 }
 
 @font-face {
   font-family: astro;
-  src: url('ASTRO867.ttf');
+  src: url("ASTRO867.ttf");
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background-image: url(./bg.png); */
-  /* background-color: black; */
   color: white;
   font-family: gotham;
 }
@@ -26,11 +24,12 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  /* background-color: black; */
+  background-image: url("./bg.jpg");
 }
 
 .minter-h1 {
-  /* margin-top: 2em; */
+  margin-top: 2em;
   font-family: astro;
   font-size: 2rem;
   text-align: center;
@@ -142,6 +141,7 @@
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   -moz-transition: 0.5s;
+  padding: 20px;
   transition: 0.5s;
   background-color: #27008b;
   background-size: 200% auto;
