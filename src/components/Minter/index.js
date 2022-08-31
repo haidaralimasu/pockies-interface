@@ -13,7 +13,8 @@ import WalletConnectButton from '../WalletConnectButton'
 import { ethers } from 'ethers'
 import { expressUrl } from '../../config'
 import axios from 'axios'
-import { pockiesContract } from '../../utils'
+import { pockiesAddress } from '../../config'
+import { pockiesInterface } from '../../utils'
 import { notifySuccess, notifyError } from '../toast'
 
 const Minter = () => {
@@ -68,6 +69,15 @@ const Minter = () => {
     try {
       setWaiting(true)
       const txCost = Number(formattedPrice) * amount
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+
+      const pockiesContract = new ethers.Contract(
+        pockiesAddress,
+        pockiesInterface,
+        signer,
+      )
+
       const tx = await pockiesContract.mintPreSale(amount, hexProof, {
         value: txCost.toString(),
       })
@@ -86,6 +96,16 @@ const Minter = () => {
     try {
       setWaiting(true)
       const txCost = Number(formattedPrice) * amount
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+
+      const pockiesContract = new ethers.Contract(
+        pockiesAddress,
+        pockiesInterface,
+        signer,
+      )
+
       const tx = await pockiesContract.mintPublicSale(amount, {
         value: txCost.toString(),
       })
