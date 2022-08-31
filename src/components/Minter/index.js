@@ -56,14 +56,14 @@ const Minter = () => {
     }
   }
 
-  const getHexProof = async () => {
-    try {
-      const res = await axios.get(`${expressUrl}/${userAccount}`)
-      setHexProof(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const getHexProof = async () => {
+  //   try {
+  //     const res = await axios.get(`${expressUrl}/${account}`)
+  //     setHexProof(res.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const whitelistMint = async () => {
     try {
@@ -118,11 +118,32 @@ const Minter = () => {
     }
   }
 
+  const getHexProof = () => {
+    return fetch(`${expressUrl}/${account}`, { method: 'GET' })
+      .then((response) => {
+        return response.json()
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const loadHexProof = () => {
+    getHexProof()
+      .then((data, error) => {
+        if (data.error) {
+          console.log(error)
+        } else {
+          console.log(data)
+          setHexProof(data)
+        }
+      })
+      .catch((error) => console.log(error))
+  }
+
   useEffect(() => {
-    if (account && formattedIsPresale == true) {
-      getHexProof()
-    }
-  }, [hexProof])
+    loadHexProof()
+  }, [])
+
+  console.log(hexProof)
 
   return (
     <>
