@@ -8,7 +8,14 @@ import Torus from "@toruslabs/torus-embed";
 import { infuraId, supportedChainId, rpcUrl } from "../../config";
 
 const WalletConnectButton = () => {
-  const { account, activate, deactivate, chainId, switchNetwork } = useEthers();
+  const {
+    account,
+    activate,
+    deactivate,
+    chainId,
+    switchNetwork,
+    activateBrowserWallet,
+  } = useEthers();
   const { error } = useEthers();
   useEffect(() => {
     if (chainId != supportedChainId) {
@@ -75,7 +82,10 @@ const WalletConnectButton = () => {
           Disconnect
         </Button>
       ) : (
-        <Button className="btn btn-success" onClick={activateProvider}>
+        <Button
+          className="btn btn-success"
+          onClick={() => activateBrowserWallet()}
+        >
           Connect
         </Button>
       )}

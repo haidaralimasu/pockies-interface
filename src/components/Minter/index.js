@@ -126,46 +126,46 @@ const Minter = () => {
 
                 {formattedIsPresale ? (
                   <div>
-                    <button
+                    {/* <button
                       className="btn btn-round amount  btn-gradient-blue"
                       onClick={() => decrementAmount()}
                     >
                       -
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => whitelistMint()}
                       className="btn mint  btn-gradient-blue"
                     >
                       {waiting ? "Please Wait" : `Mint ${amount}`}
                     </button>
-                    <button
+                    {/* <button
                       style={{ textAlign: "center" }}
                       className="btn btn-round amount  btn-gradient-blue"
                       onClick={() => incrementAmount()}
                     >
                       +
-                    </button>
+                    </button> */}
                   </div>
                 ) : (
                   <div>
-                    <button
+                    {/* <button
                       className="btn btn-round amount  btn-gradient-blue"
                       onClick={() => decrementAmount()}
                     >
                       -
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => mint()}
                       className="btn mint  btn-gradient-blue"
                     >
                       {waiting ? "Please Wait" : `Mint ${amount}`}
                     </button>
-                    <button
+                    {/* <button
                       className="btn btn-round amount  btn-gradient-blue"
                       onClick={() => incrementAmount()}
                     >
                       +
-                    </button>
+                    </button> */}
                   </div>
                 )}
               </div>
