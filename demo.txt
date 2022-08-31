@@ -1,0 +1,278 @@
+ <div className="minter-main">
+        {/* <img src={banner} className="banner" alt="banner" /> */}
+
+        {/* <h1 className="minter-h1">Mint Your Meta Estate NFT</h1> */}
+        <h1 style={{color:"white"}} className="minter-h1">MetaEstateIO Mint is Live</h1>
+
+        {totalSupply < maxSupply ? (
+          <div className="minting-section">
+            {account ? (
+              <div className="minting-section">
+                <button className="connect btn btn-gradient-blue">{`${account.slice(
+                  0,
+                  6
+                )}...${account.slice(-6)}`}</button>
+
+                <>
+                  {nftbalance >= 2 ? (
+                    <>
+                      {!hasClaimed ? (
+                        null
+                      ) : null}
+                    </>
+                  ) : null}
+                </>
+
+                {onlyWhitelisted ? (
+                  <>
+                    <>
+                      {isWhitelisted ? (
+                        <>
+                          {nftbalance < nftLimit + 1 ? (
+                            <div>
+                              <button
+                                className="btn btn-round amount  btn-gradient-blue"
+                                onClick={() => decrease()}
+                              >
+                                -
+                              </button>
+                              <button
+                                onClick={() => handleMint()}
+                                className="btn mint  btn-gradient-blue"
+                              >
+                                {minting ? "Please Wait" : `Mint ${amount}`}
+                              </button>
+                              <button
+                                className="btn btn-round amount  btn-gradient-blue"
+                                onClick={() => increase()}
+                              >
+                                +
+                              </button>
+                            </div>
+                          ) : (
+                            <button className="btn mint  btn-gradient-blue">
+                              You have reached your mint limit
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <button className="btn mint  btn-gradient-blue">
+                            Please Wait for Public Sale
+                          </button>
+                        </>
+                      )}
+                    </>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <button
+                        className="btn btn-round amount  btn-gradient-blue"
+                        onClick={() => decrease()}
+                      >
+                        -
+                      </button>
+                      <button
+                        onClick={() => handleMint()}
+                        className="btn mint  btn-gradient-blue"
+                      >
+                        {minting ? "Please Wait" : `Mint ${amount}`}
+                      </button>
+                      <button
+                        className="btn btn-round amount  btn-gradient-blue"
+                        onClick={() => increase()}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div>
+                <button
+                  onClick={() => activateBrowserWallet(onError)}
+                  className="connect btn btn-gradient-blue"
+                >
+                  Connect Metamask
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="minting-section">
+            <button className="connect btn btn-gradient-blue">
+              Sale Ended
+            </button>
+          </div>
+        )}
+
+        {totalSupply < maxSupply ? (
+          <div className="minter-status">
+            <div className="minter-status-card">
+              <h6>Status</h6>
+
+              <h2>Live</h2>
+            </div>
+            <div className="vl"></div>
+            <div className="minter-status-card">
+              <h6>Price</h6>
+              <h2>{cost} ETH</h2>
+            </div>
+            <div className="vl"></div>
+            {account ? (
+              <>
+                {onlyWhitelisted ? (
+                  <>
+                    {isWhitelisted ? (
+                      <div className="minter-status-card">
+                        <h6>Your Mint</h6>
+                        <h2>
+                          {nftbalance}/{nftLimit}
+                        </h2>
+                      </div>
+                    ) : null}
+                  </>
+                ) : null}
+              </>
+            ) : null}
+            <div className="vl"></div>
+            <div className="minter-status-card">
+              <h6>To Be Minted</h6>
+              <h2>{maxSupply - totalSupply}</h2>
+            </div>
+          </div>
+        ) : (
+          <div className="minter-status">
+            <div className="minter-status-card">
+              <h6>Status</h6>
+              <h2>Ended</h2>
+            </div>
+            <div className="vl"></div>
+            <div className="minter-status-card">
+              <h6>Price</h6>
+              <h2>{cost}</h2>
+            </div>
+            <div className="vl"></div>
+            <div className="minter-status-card">
+              <h6>To Be Minted</h6>
+              <h2>
+                {maxSupply - totalSupply}/{maxSupply}
+              </h2>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div>
+      <div className="container">
+        {/* <div className="logo">
+          <img style={{ marginBottom: "30px" }} src={logo} alt="logo" />
+        </div> */}
+        <h1 style={{ marginBottom: '20px' }}>
+          {formattedTotalSupply}/{formattedMaxSupply}
+        </h1>
+        {account ? (
+          <>
+            {formattedIsPresale ? (
+              <div>
+                {waiting ? (
+                  <Button buttonSize="btn--wide" buttonColor="blue">
+                    Please Wait
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      onClick={() => decrementAmount()}
+                      className="margin-btn"
+                    >
+                      -
+                    </Button>
+                    <Button
+                      onClick={() => whitelistMint()}
+                      buttonSize="btn--wide"
+                      buttonColor="blue"
+                    >
+                      Mint {amount} Onliners
+                    </Button>
+                    <Button
+                      onClick={() => incrementAmount()}
+                      className="margin-btn"
+                    >
+                      +
+                    </Button>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div>
+                {waiting ? (
+                  <Button buttonSize="btn--wide" buttonColor="blue">
+                    Please Wait
+                  </Button>
+                ) : (
+                  <>
+                    <ButtonSmall
+                      onClick={() => decrementAmount()}
+                      className="margin-btn"
+                      buttonSize="btn--medium"
+                      buttonColor="blue"
+                    >
+                      -
+                    </ButtonSmall>
+                    <Button
+                      onClick={() => mint()}
+                      buttonSize="btn--wide"
+                      buttonColor="blue"
+                    >
+                      Mint {amount} Onliners
+                    </Button>
+                    <ButtonSmall
+                      onClick={() => incrementAmount()}
+                      className="margin-btn"
+                      buttonSize="btn--medium"
+                      buttonColor="blue"
+                    >
+                      +
+                    </ButtonSmall>
+                  </>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <WalletConnectButton />
+        )}
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ marginTop: '20px' }}>
+            Price: {ethers.utils.formatEther(formattedPrice)}{' '}
+            {ethers.constants.EtherSymbol}
+          </p>
+          {formattedIsPresale ? (
+            <p style={{ marginTop: '10px' }}>Status: Presale</p>
+          ) : (
+            <p style={{ marginTop: '10px' }}>Status: Publicsale</p>
+          )}
+          <p style={{ marginTop: '10px' }}>
+            Your Mint: {formattedTotalMinted}/{formattedMaxPockiesPerWallet}
+          </p>
+        </div>
+      </div>
+    </div>

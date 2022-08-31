@@ -13,7 +13,8 @@ import WalletConnectButton from "../WalletConnectButton";
 import { ethers } from "ethers";
 import { expressUrl } from "../../config";
 import axios from "axios";
-import { pockiesContract } from "../../utils";
+import { pockiesAddress } from "../../config";
+import { pockiesInterface } from "../../utils";
 import { notifySuccess, notifyError } from "../toast";
 
 const Minter = () => {
@@ -55,21 +56,33 @@ const Minter = () => {
     }
   };
 
-  const getHexProof = async () => {
-    try {
-      const url = `${expressUrl}/${userAccount}`;
-      const res = await axios.get(url);
-      setHexProof(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getHexProof = async () => {
+  //   try {
+  //     const res = await axios.get(`${expressUrl}/${account}`)
+  //     setHexProof(res.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const whitelistMint = async () => {
     try {
       setWaiting(true);
       const txCost = Number(formattedPrice) * amount;
-      const tx = await pockiesContract.mintPreSale(amount, hexProof, {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const pockiesContract = new ethers.Contract(
+        pockiesAddress,
+        pockiesInterface,
+        signer
+      );
+
+      const res = await axios.get(`${expressUrl}/${account}`);
+
+      console.log(res.data);
+
+      const tx = await pockiesContract.mintPreSale(amount, res.data, {
         value: txCost.toString(),
       });
       await tx.wait();
@@ -87,6 +100,15 @@ const Minter = () => {
     try {
       setWaiting(true);
       const txCost = Number(formattedPrice) * amount;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const pockiesContract = new ethers.Contract(
+        pockiesAddress,
+        pockiesInterface,
+        signer
+      );
+
       const tx = await pockiesContract.mintPublicSale(amount, {
         value: txCost.toString(),
       });
@@ -100,13 +122,41 @@ const Minter = () => {
     }
   };
 
-  useEffect(() => {
-    if (account && formattedIsPresale == true) {
-      getHexProof();
-    }
-  }, [hexProof, account, formattedIsPresale]);
+  const getProof = async () => {
+    const res = await axios.get(`${expressUrl}/${account}`);
 
-  console.log(hexProof, "Hii", userAccount);
+    try {
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getHexProof = () => {
+    return fetch(`${expressUrl}/${account}`, { method: "GET" })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const loadHexProof = () => {
+    getProof()
+      .then((data, error) => {
+        if (data.error) {
+          console.log(error);
+        } else {
+          setHexProof(data);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    if (account) {
+      loadHexProof();
+    }
+  }, [hexProof]);
 
   return (
     <>
@@ -138,8 +188,11 @@ const Minter = () => {
                     >
                       {waiting ? "Please Wait" : `Mint ${amount}`}
                     </button>
+
                     {/* <button
                       style={{ textAlign: "center" }}
+                    <button
+                      style={{ textAlign: 'center' }}
                       className="btn btn-round amount  btn-gradient-blue"
                       onClick={() => incrementAmount()}
                     >

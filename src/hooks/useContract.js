@@ -1,10 +1,12 @@
-import { pockiesContract } from '../utils'
+import { pockiesInterface } from '../utils'
+import { pockiesAddress } from '../config'
 import { useCall } from '@usedapp/core'
+import { ethers } from 'ethers'
 
 export const useTotalSupply = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'totalSupply',
       args: [],
     }) ?? {}
@@ -18,7 +20,7 @@ export const useTotalSupply = () => {
 export const useMaxSupply = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getMaxPockies',
       args: [],
     }) ?? {}
@@ -32,7 +34,7 @@ export const useMaxSupply = () => {
 export const useMaxPockiesPerTx = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getMaxPockiesPerTx',
       args: [],
     }) ?? {}
@@ -46,7 +48,7 @@ export const useMaxPockiesPerTx = () => {
 export const useMaxPockiesPerWallet = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getMaxPockiePerWallet',
       args: [],
     }) ?? {}
@@ -60,7 +62,7 @@ export const useMaxPockiesPerWallet = () => {
 export const usePrice = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getPricePerPockie',
       args: [],
     }) ?? {}
@@ -74,7 +76,7 @@ export const usePrice = () => {
 export const useTotalMinted = (user) => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getTotalPockiesMinted',
       args: [user],
     }) ?? {}
@@ -88,7 +90,7 @@ export const useTotalMinted = (user) => {
 export const usePresale = () => {
   const { value, error } =
     useCall({
-      contract: pockiesContract,
+      contract: new ethers.Contract(pockiesAddress, pockiesInterface),
       method: 'getIsPresale',
       args: [],
     }) ?? {}
