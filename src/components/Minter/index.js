@@ -78,7 +78,11 @@ const Minter = () => {
         signer,
       )
 
-      const tx = await pockiesContract.mintPreSale(amount, hexProof, {
+      const res = await axios.get(`${expressUrl}/${account}`)
+
+      console.log(res.data)
+
+      const tx = await pockiesContract.mintPreSale(amount, res.data, {
         value: txCost.toString(),
       })
       await tx.wait()
@@ -118,6 +122,16 @@ const Minter = () => {
     }
   }
 
+  const getProof = async () => {
+    const res = await axios.get(`${expressUrl}/${account}`)
+
+    try {
+      return res.data
+    } catch (error) {
+      return error
+    }
+  }
+
   const getHexProof = () => {
     return fetch(`${expressUrl}/${account}`, { method: 'GET' })
       .then((response) => {
@@ -127,12 +141,11 @@ const Minter = () => {
   }
 
   const loadHexProof = () => {
-    getHexProof()
+    getProof()
       .then((data, error) => {
         if (data.error) {
           console.log(error)
         } else {
-          console.log(data)
           setHexProof(data)
         }
       })
@@ -140,16 +153,16 @@ const Minter = () => {
   }
 
   useEffect(() => {
-    loadHexProof()
-  }, [])
-
-  console.log(hexProof)
+    if (account) {
+      loadHexProof()
+    }
+  }, [hexProof])
 
   return (
     <>
       <div className="minter-main">
         <h1 style={{ color: 'white' }} className="minter-h1">
-          Pockies Mint Is Live
+          Pockies Mint Is Live jh
         </h1>
 
         {formattedTotalSupply < formattedMaxSupply ? (
