@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useEthers } from "@usedapp/core";
 import Web3Modal from "web3modal";
-import { Button } from "../Button";
+import { Button, ButtonA } from "../Button";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import Torus from "@toruslabs/torus-embed";
@@ -75,20 +75,43 @@ const WalletConnectButton = () => {
     }
   };
 
+  const redirect = () => {};
+
   return (
     <div>
-      {account ? (
-        <Button className="btn btn-danger" onClick={() => deactivate()}>
-          Disconnect
-        </Button>
-      ) : (
-        <Button
-          className="btn btn-success"
-          onClick={() => activateBrowserWallet()}
-        >
-          Connect
-        </Button>
-      )}
+      <>
+        {window.ethereum ? (
+          <div>
+            {account ? (
+              <Button className="btn btn-danger" onClick={() => deactivate()}>
+                Disconnect
+              </Button>
+            ) : (
+              <Button
+                className="btn btn-success"
+                onClick={() => activateBrowserWallet()}
+              >
+                Connect
+              </Button>
+            )}
+          </div>
+        ) : (
+          <div>
+            {account ? (
+              <Button className="btn btn-danger" onClick={() => deactivate()}>
+                Disconnect
+              </Button>
+            ) : (
+              <ButtonA
+                href="dapp://mint.u-topia.io"
+                className="btn btn-success"
+              >
+                Connect
+              </ButtonA>
+            )}
+          </div>
+        )}
+      </>
     </div>
   );
 };
